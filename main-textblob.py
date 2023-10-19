@@ -1,20 +1,23 @@
 from textblob import TextBlob # PIP required (preferred installer program)
-import PyPDF2 # PIP required
+from pypdf import PdfReader # PIP required
 import os
 
 my_file = (r"Projects\Sentiment analysis\Sentiment-analysis-example.pdf")
 
 # SETUP ENGINE
 if os.path.splitext(my_file)[1] == '.pdf':
-    pdf_file = open(my_file, 'rb')
-    pdf_reader = PyPDF2.PdfFileReader(pdf_file)
-    text = ''
+    reader = PdfReader(my_file)
+    page = reader.pages[0]
+    print(page.extract_text())
+    #pdf_file = open(my_file, 'rb')
+    #pdf_reader = PyPDF2.PdfFileReader(pdf_file)
+    #text = ''
 
-    for page in range(pdf_reader.getNumPageS()):
-        text += pdf_reader.getPage(page).extractText()
+    #for page in range(pdf_reader.getNumPageS()):
+    #    text += pdf_reader.getPage(page).extractText()
 
-    with open(my_file, 'w') as file:
-        file.write(text)
+    #with open(my_file, 'w') as file:
+    #    file.write(text)
 
 if os.path.splitext(my_file)[1] == '.txt':
     with open(my_file, 'r') as file:
