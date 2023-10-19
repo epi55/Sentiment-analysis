@@ -25,11 +25,11 @@ subValue = TextBlob(data).sentiment.subjectivity
 # -1 (Negative statement)
 # 0 (Neutral statement)
 # +1 (Positive statement)
-print("Polarity of Text is: {}.".format(polValue))
+print("Polarity of data is: {}.".format(polValue))
 
 # Subjectivity (0:+1)
 # Value of example = 0.4121157568718545
 # 0.0 (Objective statement)
 # 0.5 ?
 # 1.0 (Subjective statement)
-print("Subjectivity of Text is: {}.".format(subValue))
+print("Subjectivity of data is: {}.".format(subValue))
