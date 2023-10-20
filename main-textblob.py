@@ -2,13 +2,18 @@ from textblob import TextBlob # PIP required (preferred installer program)
 from pypdf import PdfReader # PIP required (pip install pypdf[full])
 import os
 
-my_file = (r"Projects\Sentiment analysis\Sentiment-analysis-example-2.pdf")
+my_file = (r"Projects\Sentiment analysis\Sentiment-analysis-example-3.pdf")
 
 # SETUP ENGINE
+data = ''
+
 if os.path.splitext(my_file)[1] == '.pdf':
     reader = PdfReader(my_file)
-    page = reader.pages[0]
-    data = page.extract_text()
+    fileLength = len(reader.pages)
+    for i in range(fileLength):
+        page = reader.pages[i]
+        pageExtract = page.extract_text()
+        data += pageExtract
 
 if os.path.splitext(my_file)[1] == '.txt':
     with open(my_file, 'r') as file:
@@ -19,6 +24,8 @@ if os.path.splitext(my_file)[1] == '.txt':
 # ANALYSIS ENGINE
 polValue = TextBlob(data).sentiment.polarity
 subValue = TextBlob(data).sentiment.subjectivity
+
+print(data)
 
 # Polarity (-1:+1)
 # Value of example = -0.008341076267905536
