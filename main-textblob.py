@@ -9,30 +9,38 @@ import numpy as np # pip install pandas
 from openpyxl import load_workbook
 
 # ENGINES
-def extractEngine(document, filename):
+def extractEngine(documentPath, filename):
     data = ''
 
-    if os.path.splitext(document)[1] == '.pdf':
-        reader = PdfReader(document)
+    if os.path.splitext(documentPath)[1] == '.pdf':
+        reader = PdfReader(documentPath)
         fileLength = len(reader.pages)
         for i in range(fileLength):
             page = reader.pages[i]
             pageExtract = page.extract_text()
             data += pageExtract
 
-    if os.path.splitext(document)[1] == '.txt':
-        with open(document, 'r') as file:
+    if os.path.splitext(documentPath)[1] == '.txt':
+        with open(documentPath, 'r') as file:
             data = file.read()
             data = data.replace('\n', '')
             data = '\n'.join([line for line in data.split('\n') if not line.startswith('#')])
     
-    analysisEngine(data, document)
+    # TEST
+    print("##### extractEngine test #####")
+    testPrint()
 
-def analysisEngine(data, document):
+    analysisEngine(data, documentPath)
+
+def analysisEngine(data, documentPath):
     polValue = TextBlob(data).sentiment.polarity
     subValue = TextBlob(data).sentiment.subjectivity
 
-    updateEngine(document, polValue, subValue)
+    # TEST
+    print("##### analysisEngine test #####")
+    testPrint()
+
+    updateEngine(documentPath, polValue, subValue)
 
     ## PANDAS
     #output_data = pd.DataFrame({"Document": [filename], "polValue": [polValue], "subValue": [subValue]})
@@ -55,17 +63,28 @@ def analysisEngine(data, document):
     # 1.0 (Subjective statement)
     #print("Subjectivity of data is: {}.".format(subValue))
 
-def updateEngine(document, polValue, subValue):
+def updateEngine(documentPath, polValue, subValue):
     workbookName = 'output_data.xlsx'
     wb = load_workbook(workbookName)
     page = wb.active
 
-    new_analysis = [[document, polValue, subValue]]
+    new_analysis = [[documentPath, polValue, subValue]]
 
     for info in new_analysis:
         page.append(info)
 
-    wb.save(filename=document)
+    wb.save(filename=r"Projects\Sentiment analysis\Examples\output_data.xlsx")
+
+    # TEST
+    print("##### updateEngine test #####")
+    testPrint()
+
+# TEST FUNC
+def testPrint():
+    my_file = (r"Projects\Sentiment analysis\Examples\test1.txt")
+    with open(my_file, 'r') as file:
+        data = file.read()
+        print(data)
 
 # RUN
 docFolderPath = r"Projects\Sentiment analysis\Examples"
@@ -73,5 +92,13 @@ outputFolderPath = r"Projects\Sentiment analysis\Outputs"
 
 for filename in os.listdir(docFolderPath):
     if filename.endswith((".txt", ".pdf")):
-        document = (r"{}\\{}".format(docFolderPath, filename))
-        extractEngine(document, filename)
+        documentPath = (r"{}\{}".format(docFolderPath, filename))
+        
+        # TEST
+        print("###############\n# {}\n# {}\n# {}\n# {}\n###############".format(filename, docFolderPath, outputFolderPath, documentPath)) # TEST
+        
+        # TEST
+        print("##### INIT test #####")
+        testPrint()
+
+        extractEngine(documentPath, filename)
