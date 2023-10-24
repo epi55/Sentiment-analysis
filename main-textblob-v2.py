@@ -27,34 +27,6 @@ def extractEngine(filename, documentPath):
             data = '\n'.join([line for line in data.split('\n') if not line.startswith('#')])
     
     return data
-#    analysisEngine(filename, data)
-
-#def analysisEngine(filename, data):
-#    polValue = TextBlob(data).sentiment.polarity
-#    subValue = TextBlob(data).sentiment.subjectivity
-
-    #updateEngine(filename, polValue, subValue)
-
-    ## PANDAS
-#    output_data = pd.DataFrame({"Document": [filename], "polValue": [polValue], "subValue": [subValue]})
-#    output_data.to_excel(r"Projects\Sentiment analysis\Outputs\output_data.xlsx", sheet_name="tester")
-
-#    print("# {} \n## Polarity: {} \n## Subjectivity: {}\n".format(filename, polValue, subValue))
-    
-    ## SENTINMENT ANALYSIS INFO
-    # Polarity (-1:+1)
-    # Value of example = -0.008341076267905536
-    # -1 (Negative statement)
-    # 0 (Neutral statement)
-    # +1 (Positive statement)
-    #print("Polarity of data is: {}.".format(polValue))
-
-    # Subjectivity (0:+1)
-    # Value of example = 0.4121157568718545
-    # 0.0 (Objective statement)
-    # 0.5 ?
-    # 1.0 (Subjective statement)
-    #print("Subjectivity of data is: {}.".format(subValue))
 
 # RUN
 docFolderPath = r"Projects\Sentiment analysis\Examples"
