@@ -21,7 +21,7 @@ def extractEngine(filename, documentPath):
             data += pageExtract
 
     if os.path.splitext(documentPath)[1] == '.txt':
-        with open(documentPath, 'r') as file:
+        with open(documentPath, 'r', encoding="utf8") as file:
             data = file.read()
             data = data.replace('\n', '')
             data = '\n'.join([line for line in data.split('\n') if not line.startswith('#')])
@@ -29,8 +29,8 @@ def extractEngine(filename, documentPath):
     return data
 
 # RUN
-docFolderPath = r"Projects\Sentiment analysis\Examples"
-outputFolderPath = r"Projects\Sentiment analysis\Outputs"
+docFolderPath = r"Sentiment analysis\Examples"
+outputFolderPath = r"Sentiment analysis\Outputs"
 
 all_data = pd.DataFrame(columns=["Document", "polValue", "subValue"])
 
